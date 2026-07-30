@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Raleway:wght@400..600&family=Manrope:wght@400..600&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>component-006</title>
+  </head>
+  <body>
+    <!--
+      DRIFT — the component.
+
+      A continuous diagonal belt. Images run from beyond the bottom-left corner
+      to beyond the top-right one as you scroll, swelling across the centre.
+      Neighbours meet edge to edge and never overlap, and the belt always
+      reaches both corners at once, so each device corner is always covered by
+      an image sliding through it.
+
+      The run is framed on the images: it opens held on the first one, centred
+      and at full size, and closes held on the last one in that same spot. In
+      between, the whole set passes through — so neither end is ever an empty
+      screen. Add or remove figures freely; the run re-solves itself.
+    -->
+    <section class="mfa-drift" aria-label="Image sequence">
+      <div class="mfa-drift__pin">
+        <div class="mfa-drift__stage" data-mfa-stage>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=900&q=80" alt="Mountain range under a low, heavy sky" fetchpriority="high" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80" alt="Sunlight breaking through a dense forest canopy" fetchpriority="high" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=900&q=80" alt="Fog rolling across a pine-covered valley" fetchpriority="high" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=900&q=80" alt="Path winding through tall trees" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=900&q=80" alt="Waterfall falling beneath a stone bridge" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80" alt="Lake reflecting a mountain ridge at dusk" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=900&q=80" alt="Green hills under a bright, broken sky" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?auto=format&fit=crop&w=900&q=80" alt="Open grassland running to a distant treeline" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1439853949127-fa647821eba0?auto=format&fit=crop&w=900&q=80" alt="Coastline seen from a high cliff path" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1490604001847-b712b0c2f967?auto=format&fit=crop&w=900&q=80" alt="Snow-covered peaks above a still lake" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1444927714506-8492d94b4e3d?auto=format&fit=crop&w=900&q=80" alt="Waves breaking on a rocky shore" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1465101162946-4377e57745c3?auto=format&fit=crop&w=900&q=80" alt="Night sky over a dark ridgeline" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&w=900&q=80" alt="Valley opening between forested slopes" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1454391304352-2bf4678b1a7a?auto=format&fit=crop&w=900&q=80" alt="Desert dunes in low, raking light" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?auto=format&fit=crop&w=900&q=80" alt="Calm water meeting a pale horizon" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=900&q=80" alt="Tall pines receding into mist" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=900&q=80" alt="Snowy mountainside under a clear night" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=900&q=80" alt="Winding road through an autumn valley" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=900&q=80" alt="Bare ridgeline above low cloud" loading="lazy" decoding="async" />
+          </figure>
+          <figure class="mfa-drift__card" data-mfa-card>
+            <img class="mfa-drift__img" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80" alt="Still lake under an overcast sky" loading="lazy" decoding="async" />
+          </figure>
+        </div>
+
+        <!-- start affordance; fades out as soon as the run gets going -->
+        <div class="mfa-drift__hint" data-mfa-hint aria-hidden="true">
+          <span class="mfa-drift__hint-label">Scroll</span>
+          <svg
+            class="mfa-drift__hint-arrow"
+            viewBox="0 0 12 24"
+            focusable="false"
+          >
+            <path d="M6 1 V22 M1.5 17 L6 22 L10.5 17" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

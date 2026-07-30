@@ -1,0 +1,146 @@
+/* ==========================================================================
+   DRIFT — scroll-driven diagonal image run
+   --------------------------------------------------------------------------
+   Everything is scoped under .mfa-drift: no global resets, no :root
+   variables, no generic class names. Safe to paste into any host page.
+   Positions and scales are written by main.js; this file owns looks only.
+   ========================================================================== */
+
+.mfa-drift,
+.mfa-drift *,
+.mfa-drift *::before,
+.mfa-drift *::after {
+  box-sizing: border-box;
+}
+
+.mfa-drift {
+  --mfa-bg: #0e0e0e; /* charcoal near-black */
+  --mfa-ink-soft: rgba(242, 242, 236, 0.55); /* muted off-white, the hint */
+  --mfa-card-radius: 3px;
+  /* how far a card sinks into the background at the ends of its run;
+     written per-frame by main.js */
+  --mfa-veil: 0;
+
+  position: relative;
+  display: block;
+  background: var(--mfa-bg);
+  /* internal z-indexes stay inside this stacking context — they can never
+     fight the host page's header or modals */
+  isolation: isolate;
+}
+
+/* ----- pinned viewport -----
+   ScrollTrigger pins this; the stage inside never scrolls, cards move under
+   transform only. overflow:clip hides the cards still queued past the
+   bottom-left corner and the ones that have run off the top-right. */
+.mfa-drift__pin {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: clip;
+}
+
+.mfa-drift__stage {
+  position: absolute;
+  inset: 0;
+}
+
+/* ----- cards -----
+   main.js writes width/height in px on measure (they carry the centre size,
+   and the ratio squares up on narrow screens), then only ever scales the card
+   down from there. Anchored at the stage origin; x/y place the centre,
+   xPercent/yPercent do the centring. */
+.mfa-drift__card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--mfa-card-radius);
+  background: #16161a; /* holds the frame before the photo decodes */
+  will-change: transform;
+  /* hidden until main.js has placed it, otherwise the whole set flashes
+     full-bleed at the origin on first paint */
+  visibility: hidden;
+}
+
+/* Drawn oversized by main.js and drifted against the run, so the photo has
+   parallax inside its own frame. The frame clips the overscan. */
+.mfa-drift__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ----- scroll hint -----
+   Bottom centre is the one edge the diagonal never crosses, so the hint can
+   sit there without ever colliding with an image. main.js fades it out over
+   the first moments of the run. */
+.mfa-drift__hint {
+  position: absolute;
+  z-index: 5000;
+  bottom: clamp(18px, 3.5vmin, 40px);
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+  color: var(--mfa-ink-soft);
+  pointer-events: none;
+}
+
+.mfa-drift__hint-label {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: clamp(9px, 1vmin, 11px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  /* letter-spacing adds a trailing gap; nudge back so it reads centred */
+  text-indent: 0.28em;
+}
+
+.mfa-drift__hint-arrow {
+  width: 11px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  animation: mfa-drift-bob 1.9s ease-in-out infinite;
+}
+
+@keyframes mfa-drift-bob {
+  0%,
+  100% {
+    transform: translateY(-2px);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(3px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mfa-drift__hint-arrow {
+    animation: none;
+  }
+}
+
+/* Depth veil. Cheaper than filter: blur() on eight live layers and it reads
+   the same at these sizes — cards sink toward the ground colour at the ends
+   of the run and come up to full strength across the centre. */
+.mfa-drift__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--mfa-bg);
+  opacity: var(--mfa-veil);
+  pointer-events: none;
+}
+
