@@ -28,7 +28,6 @@ const CONFIG = {
   OVERSCAN: 1.18,
   SCROLL_VH: 2, // pinned scroll distance, in viewport heights — lower = faster
   HOLD: 0.08, // scroll parked on the opening and closing frames, each end (<0.5)
-  RAMP: 0.3, // share of the drift spent easing up to speed / back down (0..0.5)
   HINT_FADE: 0.12, // slice of the drift over which the scroll hint fades out
   VEIL_MAX: 0.5, // how far an image at the corners sinks toward the ground colour
   Z_BASE: 1000, // depth sort range
@@ -231,23 +230,10 @@ const CONFIG = {
     item.veil((1 - swell) * CONFIG.VEIL_MAX);
   };
 
-  // scroll -> drift. The ends are parked so the opening and closing frames hold
-  // on their centred image — but leaving a hold at full speed, or arriving at
-  // one still at full speed, is a corner in the curve and reads as a kick.
-  // So the belt's *speed* is the shaped quantity: it eases up from nothing over
-  // the first RAMP of the run, holds flat, then eases back down to nothing.
-  // What follows is the integral of that profile, normalised to 0..1.
-  const rampArea = (x) => x * x * x * (1 - x / 2); // ∫ smoothstep, 0..1 -> 0..½
-
-  const driftAt = (progress) => {
-    const t = clamp01((progress - CONFIG.HOLD) / (1 - 2 * CONFIG.HOLD));
-    const r = CONFIG.RAMP;
-    if (r <= 0) return t;
-    const total = 1 - r; // area under the whole speed profile
-    if (t < r) return (r * rampArea(t / r)) / total;
-    if (t > 1 - r) return (total - r * rampArea((1 - t) / r)) / total;
-    return (t - r / 2) / total; // flat middle: constant speed
-  };
+  // scroll -> drift, with the ends parked so the opening and closing frames
+  // hold on their centred image instead of flicking straight into the run
+  const driftAt = (progress) =>
+    clamp01((progress - CONFIG.HOLD) / (1 - 2 * CONFIG.HOLD));
 
   const render = (progress) => {
     if (!geo) return;
