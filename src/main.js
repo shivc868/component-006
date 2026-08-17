@@ -249,7 +249,6 @@ const CONFIG = {
   };
 
   const mm = gsap.matchMedia();
-  const cleanups = [() => mm.revert()];
 
   mm.add(
     {
@@ -294,9 +293,7 @@ const CONFIG = {
     },
   );
 
-  const onLoad = () => ScrollTrigger.refresh();
-  window.addEventListener("load", onLoad, { once: true });
-  cleanups.push(() => window.removeEventListener("load", onLoad));
-
-  root.mfaDestroy = () => cleanups.forEach((fn) => fn());
+  window.addEventListener("load", () => ScrollTrigger.refresh(), {
+    once: true,
+  });
 })();
